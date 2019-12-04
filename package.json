@@ -1,6 +1,6 @@
 {
-	"name": "git-commit-notify",
-	"displayName": "Git commit notify",
+	"name": "vscode-commit-reminder",
+	"displayName": "Commit Reminder",
 	"description": "Periodically notify to commit new changes to github",
 	"version": "0.0.1",
 	"engines": {
@@ -18,7 +18,7 @@
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"pretest": "yarn run compile",
-		"test": "code-insiders --extensionDevelopmentPath=\"/media/pepijn/Data/Projects/NodeJS/git-commit-notify\""
+		"test": "code-insiders --extensionDevelopmentPath=\"/media/pepijn/Data/Projects/NodeJS/vscode-commit-reminder\""
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
