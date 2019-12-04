@@ -1,0 +1,35 @@
+{
+	"name": "git-commit-notify",
+	"displayName": "Git commit notify",
+	"description": "Periodically notify to commit new changes to github",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.40.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./out/extension.js",
+	"scripts": {
+		"vscode:prepublish": "yarn run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "yarn run compile",
+		"test": "code-insiders --extensionDevelopmentPath=\"/media/pepijn/Data/Projects/NodeJS/git-commit-notify\""
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.40.0",
+		"glob": "^7.1.5",
+		"tslint": "^5.20.0",
+		"typescript": "^3.6.4",
+		"vscode-test": "^1.2.2"
+	},
+	"dependencies": {
+		"yukikaze": "^0.2.1"
+	}
+}
