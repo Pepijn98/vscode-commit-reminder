@@ -37,5 +37,5 @@ function startInterval(minutes: number) {
 		} catch (err) {
 			vscode.window.showErrorMessage(err ? err.toString() : "Error");
 		}
-	}, 1000 * minutes); // 1000 * 60 * minutes
+	}, 1000 * 60 * minutes);
 }
