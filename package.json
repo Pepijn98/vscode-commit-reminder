@@ -20,16 +20,29 @@
 		"pretest": "yarn run compile",
 		"test": "code-insiders --extensionDevelopmentPath=\"/media/pepijn/Data/Projects/NodeJS/vscode-commit-reminder\""
 	},
+	"dependencies": {
+		"simple-git": "^1.128.0",
+		"yukikaze": "^0.2.1"
+	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
 		"@types/node": "^12.11.7",
 		"@types/vscode": "^1.40.0",
 		"glob": "^7.1.5",
 		"tslint": "^5.20.0",
-		"typescript": "^3.6.4",
+		"typescript": "^3.7.3",
 		"vscode-test": "^1.2.2"
 	},
-	"dependencies": {
-		"yukikaze": "^0.2.1"
+	"contributes": {
+		"configuration": {
+			"title": "Commit Reminder",
+			"properties": {
+				"commitReminder.interval": {
+					"type": "number",
+					"default": 30,
+					"description": "Set the interval in minutes"
+				}
+			}
+		}
 	}
 }
