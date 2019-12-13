@@ -2,9 +2,14 @@
 	"name": "vscode-commit-reminder",
 	"displayName": "Commit Reminder",
 	"description": "Periodically notify to commit new changes to github",
+	"publisher": "Kurozero",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.40.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/KurozeroPB/vscode-commit-reminder.git"
 	},
 	"categories": [
 		"Other"
