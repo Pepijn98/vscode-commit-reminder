@@ -64,4 +64,5 @@ typings/
 build/
 
 # vscode extension packed
+pkgs/
 *.vsix

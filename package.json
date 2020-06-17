@@ -4,9 +4,9 @@
 	"description": "Periodically notify to commit new changes",
 	"publisher": "Kurozero",
 	"version": "0.0.2",
-	"icon": "assets/icon.png",
+	"icon": "assets/icon-128x128.png",
 	"engines": {
-		"vscode": "^1.40.0"
+		"vscode": "^1.46.0"
 	},
 	"repository": {
 		"type": "git",
@@ -20,6 +20,7 @@
 	],
 	"main": "./build/extension.js",
 	"scripts": {
+		"pack": "vsce package --out ./pkgs",
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
