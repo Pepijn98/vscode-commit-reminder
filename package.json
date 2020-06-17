@@ -1,9 +1,10 @@
 {
 	"name": "vscode-commit-reminder",
 	"displayName": "Commit Reminder",
-	"description": "Periodically notify to commit new changes to github",
+	"description": "Periodically notify to commit new changes",
 	"publisher": "Kurozero",
-	"version": "0.0.1",
+	"version": "0.0.2",
+	"icon": "assets/icon.png",
 	"engines": {
 		"vscode": "^1.40.0"
 	},
@@ -17,26 +18,30 @@
 	"activationEvents": [
 		"*"
 	],
-	"main": "./out/extension.js",
+	"main": "./build/extension.js",
 	"scripts": {
-		"vscode:prepublish": "yarn run compile",
+		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
-		"pretest": "yarn run compile",
-		"test": "code-insiders --extensionDevelopmentPath=\"/media/pepijn/Data/Projects/NodeJS/vscode-commit-reminder\""
+		"pretest": "npm run compile",
+		"test": "code-insiders --extensionDevelopmentPath=\"/media/pvdbroek/Data/Projects/NodeJS/vscode-commit-reminder\""
 	},
 	"dependencies": {
-		"simple-git": "^1.128.0",
+		"simple-git": "^2.7.0",
 		"yukikaze": "^0.2.1"
 	},
 	"devDependencies": {
-		"@types/glob": "^7.1.1",
-		"@types/node": "^12.11.7",
-		"@types/vscode": "^1.40.0",
-		"glob": "^7.1.5",
-		"tslint": "^5.20.0",
-		"typescript": "^3.7.3",
-		"vscode-test": "^1.2.2"
+		"@types/glob": "^7.1.2",
+		"@types/node": "^14.0.13",
+		"@types/vscode": "^1.46.0",
+		"@typescript-eslint/eslint-plugin": "^3.3.0",
+		"@typescript-eslint/parser": "^3.3.0",
+		"eslint": "^7.2.0",
+		"glob": "^7.1.6",
+		"gts": "^2.0.2",
+		"tslint": "^6.1.2",
+		"typescript": "^3.9.5",
+		"vscode-test": "^1.4.0"
 	},
 	"contributes": {
 		"configuration": {
