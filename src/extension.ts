@@ -2,6 +2,11 @@ import * as vscode from "vscode";
 import SimpleGit from "simple-git/promise";
 import Yukikaze from "yukikaze";
 
+interface errorObj {
+    name?: string;
+    message?: string;
+}
+
 const git = SimpleGit(vscode.workspace.rootPath ?? process.cwd());
 
 const interval = new Yukikaze();
@@ -10,7 +15,12 @@ const interval = new Yukikaze();
 export function activate(context: vscode.ExtensionContext) {
 	const config = vscode.workspace.getConfiguration();
 	const minutes = config.get<number>("commitReminder.interval") ?? 30;
-	startInterval(minutes);
+
+    git.checkIsRepo()
+        .then((isRepo: boolean) => isRepo && startInterval(minutes))
+        .catch((error: errorObj) => {
+            console.error('vscode-commit-reminder - no git repository found: ', error.name, ' ', error.message);
+        })
 
 	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration((e) => {
 		if (e.affectsConfiguration("commitReminder.interval")) {
