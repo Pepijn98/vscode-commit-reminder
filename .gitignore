@@ -61,7 +61,7 @@ typings/
 .next
 
 # Build dir
-out/
+build/
 
 # vscode extension packed
 *.vsix
