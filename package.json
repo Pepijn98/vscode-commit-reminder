@@ -3,7 +3,7 @@
 	"displayName": "Commit Reminder",
 	"description": "Periodically notify to commit new changes",
 	"publisher": "Kurozero",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"icon": "assets/icon-128x128.png",
 	"engines": {
 		"vscode": "^1.46.0"
@@ -29,7 +29,7 @@
 	},
 	"dependencies": {
 		"simple-git": "^2.7.2",
-		"yukikaze": "^0.2.1"
+		"yukikaze": "^0.3.0"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.2",
