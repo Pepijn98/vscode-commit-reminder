@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - rootPath to workspaceFolders
 ### ⚠️ Warning
-- Do NOT use this version since i messed the configurable minutes up and with will spam messages every 5 seconds
+- Do NOT use this version since I messed the configurable minutes up and will spam messages every 5 seconds
 
 ## [0.0.2] Jun 17, 2020
 ### Changed
