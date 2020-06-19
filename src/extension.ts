@@ -16,7 +16,6 @@ const interval = new Yukikaze();
  * @param minutes x amount of minutes to check for new changes
  */
 function startInterval(minutes: number): void {
-    console.log(minutes);
     interval.run(async () => {
         try {
             const result = await git.diffSummary();
@@ -26,8 +25,7 @@ function startInterval(minutes: number): void {
         } catch (err) {
             vscode.window.showErrorMessage(err ? err.toString() : "Error");
         }
-    }, 5000);
-    // }, 1000 * 60 * minutes);
+    }, 1000 * 60 * minutes);
 }
 
 /**
