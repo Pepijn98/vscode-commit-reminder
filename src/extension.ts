@@ -1,11 +1,22 @@
-import * as vscode from "vscode";
+import vscode from "vscode";
 import SimpleGit from "simple-git/promise";
 import Yukikaze from "yukikaze";
 
-const git = SimpleGit(vscode.workspace.rootPath ?? process.cwd());
+const workspace =
+    vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0
+        ? vscode.workspace.workspaceFolders[0].uri.fsPath
+        : process.cwd();
+
+const git = SimpleGit(workspace);
 const interval = new Yukikaze();
 
+/**
+ * Check for changes every x minutes
+ *
+ * @param minutes x amount of minutes to check for new changes
+ */
 function startInterval(minutes: number): void {
+    console.log(minutes);
     interval.run(async () => {
         try {
             const result = await git.diffSummary();
@@ -15,32 +26,67 @@ function startInterval(minutes: number): void {
         } catch (err) {
             vscode.window.showErrorMessage(err ? err.toString() : "Error");
         }
-    }, 1000 * 60 * minutes);
+    }, 5000);
+    // }, 1000 * 60 * minutes);
 }
 
-export async function activate(context: vscode.ExtensionContext): Promise<void> {
-    const config = vscode.workspace.getConfiguration();
-    const minutes = config.get<number>("commitReminder.interval") ?? 30;
-
+/**
+ * Check if workspace is a git repo
+ *
+ * @returns Whether the workspace is a repo
+ */
+async function checkIsRepo(): Promise<boolean> {
     try {
         const isRepo = await git.checkIsRepo();
         if (isRepo) {
-            startInterval(minutes);
+            return true;
+        } else {
+            console.error("vscode-commit-reminder - no git repository found");
+            return false;
         }
     } catch (error) {
         console.error(`vscode-commit-reminder - no git repository found: ${error.name} ${error.message}`);
+        return false;
     }
-
-    context.subscriptions.push(vscode.workspace.onDidChangeConfiguration((e) => {
-        if (e.affectsConfiguration("commitReminder.interval")) {
-            interval.stop();
-            const config = vscode.workspace.getConfiguration();
-            const minutes = config.get<number>("commitReminder.interval") ?? 30;
-            startInterval(minutes);
-        }
-    }));
 }
 
+/**
+ * If interval minutes is changed stop and restart interval
+ */
+const onConfigurationChanged = vscode.workspace.onDidChangeConfiguration(async (event) => {
+    if (event.affectsConfiguration("commitReminder.interval")) {
+        interval.stop();
+
+        const config = vscode.workspace.getConfiguration();
+        const minutes = config.get<number>("commitReminder.interval") ?? 30;
+
+        const isRepo = await checkIsRepo();
+        if (isRepo) {
+            startInterval(minutes);
+        }
+    }
+});
+
+/**
+ * Runs on extension activation
+ *
+ * @param context context of the extension
+ */
+export async function activate(context: vscode.ExtensionContext): Promise<void> {
+    context.subscriptions.push(onConfigurationChanged);
+
+    const config = vscode.workspace.getConfiguration();
+    const minutes = config.get<number>("commitReminder.interval") ?? 30;
+
+    const isRepo = await checkIsRepo();
+    if (isRepo) {
+        startInterval(minutes);
+    }
+}
+
+/**
+ * Runs on extension deactivate
+ */
 export function deactivate(): void {
     interval.stop();
 }

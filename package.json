@@ -3,7 +3,7 @@
 	"displayName": "Commit Reminder",
 	"description": "Periodically notify to commit new changes",
 	"publisher": "Kurozero",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"icon": "assets/icon-128x128.png",
 	"engines": {
 		"vscode": "^1.46.0"
@@ -28,7 +28,7 @@
 		"test": "code-insiders --extensionDevelopmentPath=\"/media/pvdbroek/Data/Projects/NodeJS/vscode-commit-reminder\""
 	},
 	"dependencies": {
-		"simple-git": "^2.7.0",
+		"simple-git": "^2.7.2",
 		"yukikaze": "^0.2.1"
 	},
 	"devDependencies": {

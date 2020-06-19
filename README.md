@@ -7,6 +7,6 @@
 [![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/Kurozero.vscode-commit-reminder?label=downloads)](https://marketplace.visualstudio.com/items?itemName=Kurozero.vscode-commit-reminder)
 
 # vscode-commit-reminder
-Periodically notify to commit new changes to github
+Periodically notify to commit new changes
 
 </div>
