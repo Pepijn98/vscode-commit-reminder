@@ -52,6 +52,16 @@
 					"type": "number",
 					"default": 30,
 					"description": "Set the interval in minutes"
+				},
+				"commitReminder.minimumFileChanges": {
+					"type": "number",
+					"default": 2,
+					"description": "Set the minimum file changes"
+				},
+				"commitReminder.minimumChanges": {
+					"type": "number",
+					"default": 10,
+					"description": "Set the minimum changes(Insertions + Deletions)"
 				}
 			}
 		}

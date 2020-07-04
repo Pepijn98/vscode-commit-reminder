@@ -15,11 +15,12 @@ const interval = new Yukikaze();
  *
  * @param minutes x amount of minutes to check for new changes
  */
-function startInterval(minutes: number): void {
+function startInterval(minutes: number, minimumFileChanges: number, minimumChanges: number): void {
     interval.run(async () => {
         try {
             const result = await git.diffSummary();
-            if (result.changed > 0) {
+            const totalChanges = result.insertions + result.deletions;
+            if (result.changed >= minimumFileChanges || totalChanges >= minimumChanges) {
                 vscode.window.showInformationMessage(`Don't forget to commit your new changes | ${result.changed} ${result.changed === 1 ? "file" : "files"} to commit`);
             }
         } catch (err) {
@@ -52,15 +53,19 @@ async function checkIsRepo(): Promise<boolean> {
  * If interval minutes is changed stop and restart interval
  */
 const onConfigurationChanged = vscode.workspace.onDidChangeConfiguration(async (event) => {
-    if (event.affectsConfiguration("commitReminder.interval")) {
+    if (event.affectsConfiguration("commitReminder.interval")
+        || event.affectsConfiguration("commitReminder.minimumFileChanges")
+        || event.affectsConfiguration("commitReminder.minimumChanges")) {
         interval.stop();
 
         const config = vscode.workspace.getConfiguration();
         const minutes = config.get<number>("commitReminder.interval") ?? 30;
+        const minimumFileChanges = config.get<number>("commitReminder.minimumFileChanges") ?? 2;
+        const minimumChanges = config.get<number>("commitReminder.minimumChanges") ?? 10;
 
         const isRepo = await checkIsRepo();
         if (isRepo) {
-            startInterval(minutes);
+            startInterval(minutes, minimumFileChanges, minimumChanges);
         }
     }
 });
@@ -75,10 +80,12 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 
     const config = vscode.workspace.getConfiguration();
     const minutes = config.get<number>("commitReminder.interval") ?? 30;
+    const minimumFileChanges = config.get<number>("commitReminder.minimumFileChanges") ?? 2;
+    const minimumChanges = config.get<number>("commitReminder.minimumChanges") ?? 10;
 
     const isRepo = await checkIsRepo();
     if (isRepo) {
-        startInterval(minutes);
+        startInterval(minutes, minimumFileChanges, minimumChanges);
     }
 }
 
