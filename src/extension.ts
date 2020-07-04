@@ -55,12 +55,10 @@ async function checkIsRepo(): Promise<boolean> {
         if (isRepo) {
             return true;
         } else {
-            // console.error("vscode-commit-reminder - no git repository found");
             logger.appendLine("vscode-commit-reminder - no git repository found");
             return false;
         }
     } catch (error) {
-        // console.error(`vscode-commit-reminder - no git repository found: ${error.name} ${error.message}`);
         logger.appendLine(`vscode-commit-reminder - no git repository found: ${error.name} ${error.message}`);
         return false;
     }

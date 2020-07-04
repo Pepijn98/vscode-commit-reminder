@@ -6,39 +6,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.0] Jul 4, 2020
 ### Added
-- New config option minimumFileChanges, defaults to 2
-- New config option minimumChanges, defaults to 10 (insertions + deletions)
+    - New config option minimumFileChanges, defaults to 2
+    - New config option minimumChanges, defaults to 10 (insertions + deletions)
 ### Changed
-- Moved error logs to output channel
+    - Moved error logs to output channel
 ### Misc
-- Updated dependencies
+    - Updated dependencies
 
 ## [0.1.1] Jun 19, 2020
 ### Added
-- Added this changelog
+    - Added this changelog
 ### Changed
-- Bump dependency to fix initial interval message
+    - Bump dependency to fix initial interval message
 
 ## [0.1.0] Jun 19, 2020
 ### Fixed
-- Fixed interval minutes from last update
+    - Fixed interval minutes from last update
 
 ## [0.0.3] Jun 19, 2020
 ### Added
-- Check for git repo when config is changed
+    - Check for git repo when config is changed
 ### Changed
-- rootPath to workspaceFolders
+    - rootPath to workspaceFolders
 ### ⚠️ Warning
-- Do NOT use this version since I messed the configurable minutes up and will spam messages every 5 seconds
+    - Do NOT use this version since I messed the configurable minutes up and will spam messages every 5 seconds
 
 ## [0.0.2] Jun 17, 2020
 ### Changed
-- Updated dependencies
-- Minimum vscode version from 1.40.0 to 1.46.0
+    - Updated dependencies
+    - Minimum vscode version from 1.40.0 to 1.46.0
 ### Fixed
-- Check if workspace is a git repo
-- Moved error message from popup to console
+    - Check if workspace is a git repo
+    - Moved error message from popup to console
 
 ## [0.0.1] Dec 13, 2019
 ### Added
-- Initial Release
+    - Initial Release
