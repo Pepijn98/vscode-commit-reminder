@@ -4,6 +4,15 @@ All notable changes to the "vscode-commit-reminder" extension will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] Jul 4, 2020
+### Added
+- New config option minimumFileChanges, defaults to 2
+- New config option minimumChanges, defaults to 10 (insertions + deletions)
+### Changed
+- Moved error logs to output channel
+### Misc
+- Updated dependencies
+
 ## [0.1.1] Jun 19, 2020
 ### Added
 - Added this changelog
