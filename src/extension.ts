@@ -1,5 +1,5 @@
 import vscode from "vscode";
-import SimpleGit from "simple-git/promise";
+import SimpleGit from "simple-git";
 import Yukikaze from "yukikaze";
 import { Config } from "./types";
 

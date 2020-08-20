@@ -4,6 +4,10 @@ All notable changes to the "vscode-commit-reminder" extension will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] Aug 20, 2020
+### Changed
+    - Updated dependencies
+
 ## [0.2.0] Jul 4, 2020
 ### Added
     - New config option minimumFileChanges, defaults to 2
