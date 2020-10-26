@@ -3,34 +3,42 @@ import SimpleGit from "simple-git";
 import Yukikaze from "yukikaze";
 import { Config } from "./types";
 
-const workspace =
-    vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0
-        ? vscode.workspace.workspaceFolders[0].uri.fsPath
-        : process.cwd();
+const workspace = vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0 ? vscode.workspace.workspaceFolders[0].uri.fsPath : process.cwd();
 
 const git = SimpleGit(workspace);
 const interval = new Yukikaze();
 
-const logger = vscode.window.createOutputChannel("VSCode Commit Reminder");
+const logger = vscode.window.createOutputChannel("Commit Reminder");
 
 /**
  * Returns the extensions config values
  */
 function getConfig(): Config {
     const config = vscode.workspace.getConfiguration();
-    const minutes = config.get<number>("commitReminder.interval") ?? 30;
+    const intervalUnit = config.get<string>("commitReminder.intervalUnit") || "minutes";
+    const interval = config.get<number>("commitReminder.interval") ?? 30;
     const minFileChanges = config.get<number>("commitReminder.minimumFileChanges") ?? 2;
     const minChanges = config.get<number>("commitReminder.minimumChanges") ?? 10;
-    return { minutes, minFileChanges, minChanges };
+    return { intervalUnit, interval, minFileChanges, minChanges };
 }
 
 /**
- * Check for changes every x minutes
- *
- * @param minutes x amount of minutes to check for new changes
+ * Check for changes every x [seconds, minutes, hours]
  */
 function startInterval(): void {
     const config = getConfig();
+
+    let multiplier = 1000 * 60;
+    switch (config.intervalUnit) {
+        case "seconds":
+            multiplier = 1000;
+            break;
+        case "hours":
+            multiplier = 1000 * 60 * 60;
+            break;
+    }
+
+    // prettier-ignore
     interval.run(async () => {
         try {
             const result = await git.diffSummary();
@@ -41,7 +49,7 @@ function startInterval(): void {
         } catch (err) {
             vscode.window.showErrorMessage(err ? err.toString() : "Error");
         }
-    }, 1000 * 60 * config.minutes, false);
+    }, multiplier * config.interval, false);
 }
 
 /**
@@ -68,12 +76,13 @@ async function checkIsRepo(): Promise<boolean> {
  * If interval minutes is changed stop and restart interval
  */
 const onConfigurationChanged = vscode.workspace.onDidChangeConfiguration(async (event) => {
+    const unitChanged = event.affectsConfiguration("commitReminder.intervalUnit");
     const intervalChanged = event.affectsConfiguration("commitReminder.interval");
     const minFilesChanged = event.affectsConfiguration("commitReminder.minimumFileChanges");
     const minChangesChanged = event.affectsConfiguration("commitReminder.minimumChanges");
 
     // Restart interval if any ofter config options are affected by the changes
-    if (intervalChanged || minFilesChanged || minChangesChanged) {
+    if (unitChanged || intervalChanged || minFilesChanged || minChangesChanged) {
         interval.stop();
 
         // Check if current workspace is a git repo

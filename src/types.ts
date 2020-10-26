@@ -1,5 +1,6 @@
 export interface Config {
-    minutes: number;
+    intervalUnit: string;
+    interval: number;
     minFileChanges: number;
     minChanges: number;
 }
